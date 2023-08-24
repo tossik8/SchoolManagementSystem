@@ -3,14 +3,12 @@ package com.project.schoolManagementSystem.dto;
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.enumeration.Role;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 import java.time.LocalDate;
 @Getter
 @Setter
-@NoArgsConstructor
 public abstract class PersonDTO {
     private String name;
     private String surname;
