@@ -6,6 +6,8 @@ import com.project.schoolManagementSystem.enumeration.Role;
 import com.project.schoolManagementSystem.model.*;
 import com.project.schoolManagementSystem.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PersonRepository personRepository;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final AuthenticationManager authenticationManager;
     @Override
     public AuthenticationResponse register(RegistrationRequest request) {
         AuthenticationResponse response;
@@ -38,6 +41,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         return new AuthenticationResponse(jwtService.generateToken(userDetails));
     }
