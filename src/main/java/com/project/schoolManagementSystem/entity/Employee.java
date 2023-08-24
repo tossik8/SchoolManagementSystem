@@ -24,6 +24,7 @@ public class Employee extends Person {
     private int salary;
 
     public Employee(EmployeeRegistrationRequest request) {
+        super(request);
         this.hireDate = request.getHireDate();
         this.fireDate = request.getFireDate();
         this.salary = request.getSalary();

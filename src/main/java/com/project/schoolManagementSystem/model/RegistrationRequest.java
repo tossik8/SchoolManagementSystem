@@ -1,15 +1,11 @@
 package com.project.schoolManagementSystem.model;
 
 import com.project.schoolManagementSystem.enumeration.Role;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@ToString
+@Data
 public abstract class RegistrationRequest {
     private String name;
     private String surname;
