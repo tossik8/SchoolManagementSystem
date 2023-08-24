@@ -15,10 +15,10 @@ public class EmployeeDTO extends PersonDTO {
     private LocalDate fireDate;
     private int salary;
 
-    public EmployeeDTO(Employee teacher) {
-        super(teacher);
-        hireDate = teacher.getHireDate();
-        fireDate = teacher.getFireDate();
-        salary = teacher.getSalary();
+    public EmployeeDTO(Employee employee) {
+        super(employee);
+        hireDate = employee.getHireDate();
+        fireDate = employee.getFireDate();
+        salary = employee.getSalary();
     }
 }
