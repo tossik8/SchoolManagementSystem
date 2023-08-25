@@ -32,7 +32,7 @@ public abstract class Person implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
@@ -41,7 +41,7 @@ public abstract class Person implements UserDetails {
         surname = request.getSurname();
         username = request.getUsername();
         password = request.getPassword();
-        birthDate = request.getBirthDate();
+        birthdate = request.getBirthdate();
         role = request.getRole();
     }
 

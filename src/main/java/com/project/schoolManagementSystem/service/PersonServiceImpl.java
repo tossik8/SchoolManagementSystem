@@ -43,13 +43,13 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public List<PersonDTO> getAll(LocalDate from) {
-        List<Person> people = personRepository.findAllByBirthDateAfter(from);
+        List<Person> people = personRepository.findAllByBirthdateAfter(from);
         return makePersonDTOList(people);
     }
 
     @Override
     public List<PersonDTO> getAll(LocalDate from, LocalDate to) {
-        List<Person> people = personRepository.findAllByBirthDateBetween(from, to);
+        List<Person> people = personRepository.findAllByBirthdateBetween(from, to);
         return makePersonDTOList(people);
     }
 

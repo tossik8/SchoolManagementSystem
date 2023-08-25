@@ -13,13 +13,13 @@ public abstract class PersonDTO {
     private String name;
     private String surname;
     private String username;
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     private Role role;
     protected PersonDTO(Person person){
         name = person.getName();
         surname = person.getSurname();
         username = person.getUsername();
-        birthDate = person.getBirthDate();
+        birthdate = person.getBirthdate();
         role = person.getRole();
     }
 }

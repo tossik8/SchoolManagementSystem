@@ -11,6 +11,6 @@ public abstract class RegistrationRequest {
     private String surname;
     private String username;
     private String password;
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     private Role role;
 }

@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     Optional<Person> findByUsername(String username);
     List<Person> findAllByRole(Role role);
-    List<Person> findAllByBirthDateAfter(LocalDate from);
-    List<Person> findAllByBirthDateBetween(LocalDate from, LocalDate to);
+    List<Person> findAllByBirthdateAfter(LocalDate from);
+    List<Person> findAllByBirthdateBetween(LocalDate from, LocalDate to);
 }
