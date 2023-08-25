@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,14 @@ public class PersonController {
     }
 
     @GetMapping("/all")
-    public List<PersonDTO> getAll(){
+    public List<PersonDTO> getAll(@RequestParam(required = false) LocalDate birthdateFrom,
+                                  @RequestParam(required = false) LocalDate birthdateTo){
+        if(birthdateFrom != null && birthdateTo != null){
+            return personService.getAll(birthdateFrom, birthdateTo);
+        }
+        else if (birthdateFrom != null){
+            return personService.getAll(birthdateFrom);
+        }
         return personService.getAll();
     }
 

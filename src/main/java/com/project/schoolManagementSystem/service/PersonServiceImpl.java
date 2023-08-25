@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +38,22 @@ public class PersonServiceImpl implements PersonService{
     @Override
     public List<PersonDTO> getAll() {
         List<Person> people = personRepository.findAll();
+        return makePersonDTOList(people);
+    }
+
+    @Override
+    public List<PersonDTO> getAll(LocalDate from) {
+        List<Person> people = personRepository.findAllByBirthDateAfter(from);
+        return makePersonDTOList(people);
+    }
+
+    @Override
+    public List<PersonDTO> getAll(LocalDate from, LocalDate to) {
+        List<Person> people = personRepository.findAllByBirthDateBetween(from, to);
+        return makePersonDTOList(people);
+    }
+
+    private List<PersonDTO> makePersonDTOList(List<Person> people){
         List<PersonDTO> peopleDTO = new LinkedList<>();
         for (Person person : people){
             if(person.getRole() == Role.STUDENT){
