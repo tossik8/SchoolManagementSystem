@@ -1,6 +1,5 @@
 package com.project.schoolManagementSystem.dto.registration;
 
-import com.project.schoolManagementSystem.dto.registration.RegistrationRequest;
 import lombok.*;
 
 import java.time.LocalDate;
