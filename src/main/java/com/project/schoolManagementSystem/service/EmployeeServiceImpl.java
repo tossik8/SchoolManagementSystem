@@ -1,6 +1,6 @@
 package com.project.schoolManagementSystem.service;
 
-import com.project.schoolManagementSystem.dto.EmployeeDTO;
+import com.project.schoolManagementSystem.dto.db.EmployeeDTO;
 import com.project.schoolManagementSystem.entity.Employee;
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.enumeration.Role;

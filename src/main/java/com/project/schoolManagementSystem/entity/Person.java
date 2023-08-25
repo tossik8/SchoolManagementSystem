@@ -1,7 +1,7 @@
 package com.project.schoolManagementSystem.entity;
 
 import com.project.schoolManagementSystem.enumeration.Role;
-import com.project.schoolManagementSystem.model.RegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.RegistrationRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

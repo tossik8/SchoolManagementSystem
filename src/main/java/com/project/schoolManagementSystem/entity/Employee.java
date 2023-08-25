@@ -1,7 +1,7 @@
 package com.project.schoolManagementSystem.entity;
 
 
-import com.project.schoolManagementSystem.model.EmployeeRegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;

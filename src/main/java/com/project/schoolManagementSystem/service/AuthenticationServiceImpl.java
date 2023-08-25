@@ -1,9 +1,13 @@
 package com.project.schoolManagementSystem.service;
 
+import com.project.schoolManagementSystem.dto.authentication.AuthenticationRequest;
+import com.project.schoolManagementSystem.dto.authentication.AuthenticationResponse;
+import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.RegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import com.project.schoolManagementSystem.entity.Employee;
 import com.project.schoolManagementSystem.entity.Student;
 import com.project.schoolManagementSystem.enumeration.Role;
-import com.project.schoolManagementSystem.model.*;
 import com.project.schoolManagementSystem.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

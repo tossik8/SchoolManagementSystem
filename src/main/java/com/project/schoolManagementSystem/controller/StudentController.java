@@ -1,6 +1,6 @@
 package com.project.schoolManagementSystem.controller;
 
-import com.project.schoolManagementSystem.dto.StudentDTO;
+import com.project.schoolManagementSystem.dto.db.StudentDTO;
 import com.project.schoolManagementSystem.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

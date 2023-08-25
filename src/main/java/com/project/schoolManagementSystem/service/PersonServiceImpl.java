@@ -1,8 +1,8 @@
 package com.project.schoolManagementSystem.service;
 
-import com.project.schoolManagementSystem.dto.PersonDTO;
-import com.project.schoolManagementSystem.dto.StudentDTO;
-import com.project.schoolManagementSystem.dto.EmployeeDTO;
+import com.project.schoolManagementSystem.dto.db.PersonDTO;
+import com.project.schoolManagementSystem.dto.db.StudentDTO;
+import com.project.schoolManagementSystem.dto.db.EmployeeDTO;
 import com.project.schoolManagementSystem.entity.Employee;
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.entity.Student;

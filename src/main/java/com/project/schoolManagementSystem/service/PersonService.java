@@ -1,6 +1,6 @@
 package com.project.schoolManagementSystem.service;
 
-import com.project.schoolManagementSystem.dto.PersonDTO;
+import com.project.schoolManagementSystem.dto.db.PersonDTO;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.project.schoolManagementSystem.model;
+package com.project.schoolManagementSystem.dto.registration;
 
 import com.project.schoolManagementSystem.enumeration.Role;
 import lombok.Data;

@@ -1,9 +1,9 @@
 package com.project.schoolManagementSystem.controller;
 
-import com.project.schoolManagementSystem.model.AuthenticationRequest;
-import com.project.schoolManagementSystem.model.AuthenticationResponse;
-import com.project.schoolManagementSystem.model.EmployeeRegistrationRequest;
-import com.project.schoolManagementSystem.model.StudentRegistrationRequest;
+import com.project.schoolManagementSystem.dto.authentication.AuthenticationRequest;
+import com.project.schoolManagementSystem.dto.authentication.AuthenticationResponse;
+import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import com.project.schoolManagementSystem.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

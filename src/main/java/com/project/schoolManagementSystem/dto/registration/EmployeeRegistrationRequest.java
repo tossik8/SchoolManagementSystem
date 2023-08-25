@@ -1,4 +1,4 @@
-package com.project.schoolManagementSystem.model;
+package com.project.schoolManagementSystem.dto.registration;
 
 
 import lombok.*;

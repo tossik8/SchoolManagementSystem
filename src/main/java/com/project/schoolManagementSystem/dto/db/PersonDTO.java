@@ -1,4 +1,4 @@
-package com.project.schoolManagementSystem.dto;
+package com.project.schoolManagementSystem.dto.db;
 
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.enumeration.Role;

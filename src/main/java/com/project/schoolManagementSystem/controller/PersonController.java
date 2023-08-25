@@ -1,6 +1,6 @@
 package com.project.schoolManagementSystem.controller;
 
-import com.project.schoolManagementSystem.dto.PersonDTO;
+import com.project.schoolManagementSystem.dto.db.PersonDTO;
 import com.project.schoolManagementSystem.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

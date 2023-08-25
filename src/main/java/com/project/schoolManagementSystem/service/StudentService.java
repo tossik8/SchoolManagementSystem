@@ -1,6 +1,6 @@
 package com.project.schoolManagementSystem.service;
 
-import com.project.schoolManagementSystem.dto.StudentDTO;
+import com.project.schoolManagementSystem.dto.db.StudentDTO;
 
 import java.util.List;
 

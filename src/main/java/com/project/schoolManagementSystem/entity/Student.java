@@ -1,6 +1,6 @@
 package com.project.schoolManagementSystem.entity;
 
-import com.project.schoolManagementSystem.model.StudentRegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
