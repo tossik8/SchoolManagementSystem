@@ -1,8 +1,10 @@
 package com.project.schoolManagementSystem.controller;
 
 import com.project.schoolManagementSystem.dto.db.StudentDTO;
+import com.project.schoolManagementSystem.dto.update.UpdateStudentRequest;
 import com.project.schoolManagementSystem.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,12 @@ public class StudentController {
     @GetMapping("/{username}")
     public StudentDTO getStudent(@PathVariable String username){
         return studentService.getStudent(username);
+    }
+
+    @PutMapping("/{username}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void updateStudent(@PathVariable String username, @RequestBody UpdateStudentRequest request){
+        studentService.updateStudent(username, request);
     }
 
     @GetMapping("/all")

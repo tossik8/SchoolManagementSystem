@@ -4,6 +4,7 @@ import com.project.schoolManagementSystem.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,6 +31,8 @@ public class SecurityConfig {
                     .requestMatchers("/api/v1/person/all", "/api/v1/person/{username}", "/api/v1/employee/{username}",
                             "/api/v1/student/all", "/api/v1/employee/all", "/api/v1/auth/student/registration",
                             "/api/v1/auth/employee/registration")
+                    .hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/student/{username}")
                     .hasAuthority("ADMIN")
                     .requestMatchers("/api/v1/student/{username}")
                     .hasAnyAuthority("TEACHER", "ADMIN")

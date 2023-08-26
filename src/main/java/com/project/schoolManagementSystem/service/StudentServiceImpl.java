@@ -1,6 +1,7 @@
 package com.project.schoolManagementSystem.service;
 
 import com.project.schoolManagementSystem.dto.db.StudentDTO;
+import com.project.schoolManagementSystem.dto.update.UpdateStudentRequest;
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.entity.Student;
 import com.project.schoolManagementSystem.enumeration.Role;
@@ -30,5 +31,17 @@ public class StudentServiceImpl implements StudentService {
         List<StudentDTO> studentDTOS = new ArrayList<>(students.size());
         students.forEach(student -> studentDTOS.add(new StudentDTO((Student) student)));
         return studentDTOS;
+    }
+
+    @Override
+    public void updateStudent(String username, UpdateStudentRequest request) {
+        Student student = (Student) userDetailsService.loadUserByUsername(username);
+        student.setName(request.getName());
+        student.setSurname(request.getSurname());
+        student.setBirthdate(request.getBirthdate());
+        student.setEnrolled(request.isEnrolled());
+        student.setEnrollmentDate(request.getEnrollmentDate());
+        student.setGraduationDate(request.getGraduationDate());
+        personRepository.save(student);
     }
 }
