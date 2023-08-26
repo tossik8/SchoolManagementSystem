@@ -1,5 +1,6 @@
 package com.project.schoolManagementSystem.controller;
 
+import com.project.schoolManagementSystem.exception.InvalidRoleAssignmentException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,5 +14,9 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+    @ExceptionHandler(InvalidRoleAssignmentException.class)
+    public ResponseEntity<String> handleUnauthorizedRoleException(InvalidRoleAssignmentException exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 }

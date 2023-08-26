@@ -28,13 +28,17 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/v1/auth/login")
                     .permitAll()
-                    .requestMatchers("/api/v1/person/all", "/api/v1/person/{username}", "/api/v1/employee/{username}",
-                            "/api/v1/student/all", "/api/v1/employee/all", "/api/v1/auth/student/registration",
+                    .requestMatchers(HttpMethod.POST, "/api/v1/auth/student/registration",
                             "/api/v1/auth/employee/registration")
                     .hasAuthority("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/api/v1/student/{username}")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/person/all", "/api/v1/person/{username}",
+                            "/api/v1/employee/{username}", "/api/v1/student/all", "/api/v1/employee/all")
                     .hasAuthority("ADMIN")
-                    .requestMatchers("/api/v1/student/{username}")
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/student/{username}", "/api/v1/employee/{username}")
+                    .hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/person/{username}")
+                    .hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/v1/student/{username}")
                     .hasAnyAuthority("TEACHER", "ADMIN")
                     .anyRequest()
                     .authenticated())

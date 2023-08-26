@@ -1,8 +1,10 @@
 package com.project.schoolManagementSystem.controller;
 
 import com.project.schoolManagementSystem.dto.db.EmployeeDTO;
+import com.project.schoolManagementSystem.dto.update.UpdateEmployeeRequest;
 import com.project.schoolManagementSystem.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,11 @@ public class EmployeeController {
     @GetMapping("/{username}")
     public EmployeeDTO getEmployee(@PathVariable String username){
         return employeeService.getEmployee(username);
+    }
+    @PutMapping("/{username}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void updateEmployee(@PathVariable String username, @RequestBody UpdateEmployeeRequest request){
+        employeeService.updateEmployee(username, request);
     }
 
     @GetMapping("/all")
