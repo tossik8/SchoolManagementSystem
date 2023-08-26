@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @ControllerAdvice
 public class ExceptionController extends ResponseEntityExceptionHandler {
 
@@ -18,5 +21,16 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidRoleAssignmentException.class)
     public ResponseEntity<String> handleUnauthorizedRoleException(InvalidRoleAssignmentException exception){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+    @ExceptionHandler(ClassCastException.class)
+    public ResponseEntity<String> handleClassCastException(ClassCastException exception){
+        Pattern pattern = Pattern.compile("entity\\.\\w+");
+        Matcher matcher = pattern.matcher(exception.getMessage());
+        if(matcher.find()){
+            String type = matcher.group().toLowerCase().replaceAll("entity.", "");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The provided username corresponds to" +
+                    " a(n) " + type +  " and this endpoint does not access " + type + " data");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }
