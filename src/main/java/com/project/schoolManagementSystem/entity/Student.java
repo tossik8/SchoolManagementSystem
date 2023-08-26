@@ -19,8 +19,8 @@ public class Student extends Person{
     private LocalDate graduationDate;
     private boolean enrolled;
 
-    public Student(StudentRegistrationRequest request) {
-        super(request);
+    public Student(StudentRegistrationRequest request, String password) {
+        super(request, password);
         enrollmentDate = request.getEnrollmentDate();
         graduationDate = request.getGraduationDate();
         enrolled = request.isEnrolled();

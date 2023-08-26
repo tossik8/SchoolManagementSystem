@@ -36,11 +36,11 @@ public abstract class Person implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    protected Person(RegistrationRequest request) {
+    protected Person(RegistrationRequest request, String password) {
         name = request.getName();
         surname = request.getSurname();
         username = request.getUsername();
-        password = request.getPassword();
+        this.password = password;
         birthdate = request.getBirthdate();
         role = request.getRole();
     }

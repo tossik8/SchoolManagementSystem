@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployee(String username, UpdateEmployeeRequest request) {
         Employee employee = (Employee) userDetailsService.loadUserByUsername(username);
         if(request.getRole() == Role.STUDENT){
-            throw new InvalidRoleAssignmentException("TEACHER cannot be assigned the role of STUDENT.\n" +
+            throw new InvalidRoleAssignmentException("The employee cannot be assigned the role of STUDENT.\n" +
                     "Create a new record and assign STUDENT to it instead");
         }
         employee.setName(request.getName());

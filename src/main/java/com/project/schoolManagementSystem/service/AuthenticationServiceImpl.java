@@ -4,8 +4,10 @@ import com.project.schoolManagementSystem.dto.authentication.AuthenticationReque
 import com.project.schoolManagementSystem.dto.authentication.AuthenticationResponse;
 import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
 import com.project.schoolManagementSystem.dto.registration.RegistrationRequest;
+import com.project.schoolManagementSystem.dto.registration.RegistrationResponse;
 import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import com.project.schoolManagementSystem.entity.Employee;
+import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.entity.Student;
 import com.project.schoolManagementSystem.enumeration.Role;
 import com.project.schoolManagementSystem.repository.PersonRepository;
@@ -26,21 +28,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
+    private final PasswordService passwordService;
     @Override
-    public AuthenticationResponse register(RegistrationRequest request) {
-        AuthenticationResponse response;
-        request.setPassword(passwordEncoder.encode(request.getPassword()));
+    public RegistrationResponse register(RegistrationRequest request) {
+        String rawPassword = passwordService.generatePassword();
+        String password = passwordEncoder.encode(rawPassword);
+        Person person;
         if (request.getRole() == Role.STUDENT){
-            Student student = new Student((StudentRegistrationRequest) request);
-            personRepository.save(student);
-            response = new AuthenticationResponse(jwtService.generateToken(student));
+            person = new Student((StudentRegistrationRequest) request, password);
         }
         else{
-            Employee employee = new Employee((EmployeeRegistrationRequest) request);
-            personRepository.save(employee);
-            response = new AuthenticationResponse(jwtService.generateToken(employee));
+            person = new Employee((EmployeeRegistrationRequest) request, password);
         }
-        return response;
+        personRepository.save(person);
+        return new RegistrationResponse(jwtService.generateToken(person), rawPassword);
     }
 
     @Override

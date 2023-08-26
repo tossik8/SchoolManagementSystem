@@ -10,7 +10,6 @@ public abstract class RegistrationRequest {
     private String name;
     private String surname;
     private String username;
-    private String password;
     private LocalDate birthdate;
     private Role role;
 }

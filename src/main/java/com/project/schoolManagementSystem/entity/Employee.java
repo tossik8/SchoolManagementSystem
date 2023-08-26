@@ -23,8 +23,8 @@ public class Employee extends Person {
     private LocalDate fireDate;
     private int salary;
 
-    public Employee(EmployeeRegistrationRequest request) {
-        super(request);
+    public Employee(EmployeeRegistrationRequest request, String password) {
+        super(request, password);
         this.hireDate = request.getHireDate();
         this.fireDate = request.getFireDate();
         this.salary = request.getSalary();
