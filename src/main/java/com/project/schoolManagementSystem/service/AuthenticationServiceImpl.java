@@ -19,6 +19,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 
 @Service
 @RequiredArgsConstructor
@@ -31,17 +33,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordService passwordService;
     @Override
     public RegistrationResponse register(RegistrationRequest request) {
+        String username = generateUsername();
         String rawPassword = passwordService.generatePassword();
         String password = passwordEncoder.encode(rawPassword);
         Person person;
         if (request.getRole() == Role.STUDENT){
-            person = new Student((StudentRegistrationRequest) request, password);
+            person = new Student((StudentRegistrationRequest) request, username, password);
         }
         else{
-            person = new Employee((EmployeeRegistrationRequest) request, password);
+            person = new Employee((EmployeeRegistrationRequest) request, username, password);
         }
         personRepository.save(person);
-        return new RegistrationResponse(jwtService.generateToken(person), rawPassword);
+        return new RegistrationResponse(username, rawPassword);
+    }
+
+    private String generateUsername(){
+        Random random = new Random();
+        StringBuilder username = new StringBuilder();
+        do {
+            random.ints(8, 0, 9).forEach(username::append);
+        } while (personRepository.findByUsername(username.toString()).isPresent());
+        return username.toString();
     }
 
     @Override

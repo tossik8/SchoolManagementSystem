@@ -41,10 +41,10 @@ public abstract class Person implements UserDetails {
     @Column(nullable = false)
     private Role role;
 
-    protected Person(RegistrationRequest request, String password) {
+    protected Person(RegistrationRequest request, String username, String password) {
         name = request.getName();
         surname = request.getSurname();
-        username = request.getUsername();
+        this.username = username;
         this.password = password;
         birthdate = request.getBirthdate();
         role = request.getRole();

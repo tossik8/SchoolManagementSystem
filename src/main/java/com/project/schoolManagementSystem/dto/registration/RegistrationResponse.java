@@ -7,6 +7,6 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 public class RegistrationResponse {
-    private String token;
+    private String username;
     private String password;
 }

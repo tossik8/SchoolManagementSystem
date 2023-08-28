@@ -26,8 +26,8 @@ public class Employee extends Person {
     @Column(nullable = false)
     private int salary;
 
-    public Employee(EmployeeRegistrationRequest request, String password) {
-        super(request, password);
+    public Employee(EmployeeRegistrationRequest request, String username, String password) {
+        super(request, username, password);
         this.hireDate = request.getHireDate();
         this.fireDate = request.getFireDate();
         this.salary = request.getSalary();

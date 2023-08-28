@@ -22,8 +22,8 @@ public class Student extends Person{
     @Column(nullable = false)
     private boolean enrolled;
 
-    public Student(StudentRegistrationRequest request, String password) {
-        super(request, password);
+    public Student(StudentRegistrationRequest request,String username, String password) {
+        super(request, username, password);
         enrollmentDate = request.getEnrollmentDate();
         graduationDate = request.getGraduationDate();
         enrolled = request.isEnrolled();
