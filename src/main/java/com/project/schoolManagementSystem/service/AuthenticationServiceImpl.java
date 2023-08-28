@@ -49,8 +49,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private String generateUsername(){
         Random random = new Random();
-        StringBuilder username = new StringBuilder();
+        StringBuilder username;
         do {
+            username = new StringBuilder();
             random.ints(8, 0, 9).forEach(username::append);
         } while (personRepository.findByUsername(username.toString()).isPresent());
         return username.toString();
