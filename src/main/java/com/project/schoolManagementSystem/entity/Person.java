@@ -27,13 +27,18 @@ public abstract class Person implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private LocalDate birthdate;
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
     protected Person(RegistrationRequest request, String password) {

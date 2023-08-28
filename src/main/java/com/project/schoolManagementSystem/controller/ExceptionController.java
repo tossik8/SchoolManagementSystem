@@ -2,6 +2,7 @@ package com.project.schoolManagementSystem.controller;
 
 import com.project.schoolManagementSystem.exception.InvalidRoleAssignmentException;
 import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,5 +33,14 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
                     " a(n) " + type +  " and this endpoint does not access " + type + " data");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    @ExceptionHandler(PropertyValueException.class)
+    public ResponseEntity<String> handlePropertyValueException(PropertyValueException exception){
+        Pattern pattern = Pattern.compile("\\w+$");
+        Matcher matcher = pattern.matcher(exception.getMessage());
+        if(matcher.find()){
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(matcher.group() + " cannot be null");
+        }
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
 }

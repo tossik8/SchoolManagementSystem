@@ -1,6 +1,7 @@
 package com.project.schoolManagementSystem.entity;
 
 import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -15,8 +16,10 @@ import java.time.LocalDate;
 @ToString(callSuper = true)
 public class Student extends Person{
 
+    @Column(nullable = false)
     private LocalDate enrollmentDate;
     private LocalDate graduationDate;
+    @Column(nullable = false)
     private boolean enrolled;
 
     public Student(StudentRegistrationRequest request, String password) {

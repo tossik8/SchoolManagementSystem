@@ -2,6 +2,7 @@ package com.project.schoolManagementSystem.entity;
 
 
 import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -19,8 +20,10 @@ import java.time.LocalDate;
 @Table
 public class Employee extends Person {
 
+    @Column(nullable = false)
     private LocalDate hireDate;
     private LocalDate fireDate;
+    @Column(nullable = false)
     private int salary;
 
     public Employee(EmployeeRegistrationRequest request, String password) {
