@@ -1,6 +1,7 @@
 package com.project.schoolManagementSystem.filter;
 
 import com.project.schoolManagementSystem.service.JwtService;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
@@ -34,7 +37,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         String token = authHeader.substring(7);
-        String username = jwtService.getUsername(token);
+        String username;
+        try{
+            username = jwtService.getUsername(token);
+        } catch (JwtException exception){
+            handleJwtException(response, exception);
+            return;
+        }
         if (username != null || SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authToken =
@@ -43,5 +52,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }
         filterChain.doFilter(request, response);
+    }
+    private void handleJwtException(HttpServletResponse response, JwtException exception){
+        Pattern pattern = Pattern.compile("^[\\w\\s-:]+");
+        Matcher matcher = pattern.matcher(exception.getMessage());
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        if(matcher.find()){
+            try {
+                response.getWriter().write(matcher.group());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
