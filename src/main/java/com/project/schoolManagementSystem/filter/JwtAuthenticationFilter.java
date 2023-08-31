@@ -31,9 +31,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
+        if(request.getRequestURI().endsWith("login")){
+            filterChain.doFilter(request, response);
+            return;
+        }
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().println("An authentication token must be provided");
             return;
         }
         String token = authHeader.substring(7);
@@ -59,7 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         if(matcher.find()){
             try {
-                response.getWriter().write(matcher.group());
+                response.getWriter().println(matcher.group());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
