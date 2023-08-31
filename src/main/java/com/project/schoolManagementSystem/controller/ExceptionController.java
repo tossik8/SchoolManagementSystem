@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +50,11 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
                                                                   @NonNull HttpHeaders headers,
                                                                   @NonNull HttpStatusCode status,
                                                                   @NonNull WebRequest request) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getBody().getDetail());
+        String errors = Arrays.toString(exception.getDetailMessageArguments())
+                .replaceAll("[\\[\\]]", "").replaceFirst(", ", "")
+                .replaceAll("\\w+: ", "").replaceAll(", ", "\n")
+                .replaceAll("'", "");
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors);
     }
     @ExceptionHandler(MalformedEmailException.class)
     public ResponseEntity<String> handleMalformedEmailException(MalformedEmailException exception){

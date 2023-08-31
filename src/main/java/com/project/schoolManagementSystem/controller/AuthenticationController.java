@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request){
+    public AuthenticationResponse authenticate(@Valid @RequestBody AuthenticationRequest request){
         return authenticationService.authenticate(request);
     }
 }
