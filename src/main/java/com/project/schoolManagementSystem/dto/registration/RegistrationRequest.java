@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public abstract class RegistrationRequest {
     private String name;
     private String surname;
+    private String email;
     private LocalDate birthdate;
     private Role role;
 }

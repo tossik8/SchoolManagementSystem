@@ -3,7 +3,6 @@ package com.project.schoolManagementSystem.controller;
 import com.project.schoolManagementSystem.dto.authentication.AuthenticationRequest;
 import com.project.schoolManagementSystem.dto.authentication.AuthenticationResponse;
 import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
-import com.project.schoolManagementSystem.dto.registration.RegistrationResponse;
 import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import com.project.schoolManagementSystem.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +18,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/student/registration")
-    public RegistrationResponse register(@RequestBody StudentRegistrationRequest request){
+    public String register(@RequestBody StudentRegistrationRequest request){
         return authenticationService.register(request);
     }
 
     @PostMapping("/employee/registration")
-    public RegistrationResponse register(@RequestBody EmployeeRegistrationRequest request){
+    public String register(@RequestBody EmployeeRegistrationRequest request){
         return authenticationService.register(request);
     }
 

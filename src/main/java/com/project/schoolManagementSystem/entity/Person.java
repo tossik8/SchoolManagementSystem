@@ -32,6 +32,8 @@ public abstract class Person implements UserDetails {
     @Column(nullable = false)
     private String surname;
     @Column(unique = true, nullable = false)
+    private String email;
+    @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false)
     private String password;
@@ -44,6 +46,7 @@ public abstract class Person implements UserDetails {
     protected Person(RegistrationRequest request, String username, String password) {
         name = request.getName();
         surname = request.getSurname();
+        email = request.getEmail();
         this.username = username;
         this.password = password;
         birthdate = request.getBirthdate();

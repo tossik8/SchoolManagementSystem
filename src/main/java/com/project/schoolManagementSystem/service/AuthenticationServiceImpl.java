@@ -4,13 +4,13 @@ import com.project.schoolManagementSystem.dto.authentication.AuthenticationReque
 import com.project.schoolManagementSystem.dto.authentication.AuthenticationResponse;
 import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
 import com.project.schoolManagementSystem.dto.registration.RegistrationRequest;
-import com.project.schoolManagementSystem.dto.registration.RegistrationResponse;
 import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import com.project.schoolManagementSystem.entity.Employee;
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.entity.Student;
 import com.project.schoolManagementSystem.enumeration.Role;
 import com.project.schoolManagementSystem.repository.PersonRepository;
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,8 +31,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
     private final PasswordService passwordService;
+    private final EmailService emailService;
     @Override
-    public RegistrationResponse register(RegistrationRequest request) {
+    public String register(RegistrationRequest request) {
+        if(personRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new EntityExistsException("Email already registered");
+        }
         String username = generateUsername();
         String rawPassword = passwordService.generatePassword();
         String password = passwordEncoder.encode(rawPassword);
@@ -44,7 +48,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             person = new Employee((EmployeeRegistrationRequest) request, username, password);
         }
         personRepository.save(person);
-        return new RegistrationResponse(username, rawPassword);
+        emailService.sendEmail(request.getEmail(), "Login credentials",
+                "Username: " + username + "\nPassword: " + rawPassword);
+        return "Login credentials were sent to the email: " + request.getEmail();
     }
 
     private String generateUsername(){

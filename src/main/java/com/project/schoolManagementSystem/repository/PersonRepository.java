@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
+    Optional<Person> findByEmail(String email);
     Optional<Person> findByUsername(String username);
     List<Person> findAllByRole(Role role);
     List<Person> findAllByBirthdateAfter(LocalDate from);
