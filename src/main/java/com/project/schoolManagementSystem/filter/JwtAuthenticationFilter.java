@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")){
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().println("An authentication token must be provided");
+            response.getWriter().write("An authentication token must be provided");
             return;
         }
         String token = authHeader.substring(7);
@@ -63,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Matcher matcher = pattern.matcher(exception.getMessage());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         if(matcher.find()){
-            response.getWriter().println(matcher.group());
+            response.getWriter().write(matcher.group());
         }
     }
 }
