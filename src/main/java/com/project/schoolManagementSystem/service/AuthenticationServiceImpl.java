@@ -9,6 +9,7 @@ import com.project.schoolManagementSystem.entity.Employee;
 import com.project.schoolManagementSystem.entity.Person;
 import com.project.schoolManagementSystem.entity.Student;
 import com.project.schoolManagementSystem.enumeration.Role;
+import com.project.schoolManagementSystem.exception.MalformedEmailException;
 import com.project.schoolManagementSystem.repository.PersonRepository;
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final EmailService emailService;
     @Override
     public String register(RegistrationRequest request) {
-        if(personRepository.findByEmail(request.getEmail()).isPresent()){
-            throw new EntityExistsException("Email already registered");
-        }
+        validateRegistrationRequestData(request);
         String username = generateUsername();
         String rawPassword = passwordService.generatePassword();
         String password = passwordEncoder.encode(rawPassword);
@@ -51,6 +50,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         emailService.sendEmail(request.getEmail(), "Login credentials",
                 "Username: " + username + "\nPassword: " + rawPassword);
         return "Login credentials were sent to the email: " + request.getEmail();
+    }
+
+    private void validateRegistrationRequestData(RegistrationRequest request){
+        String email = request.getEmail();
+        String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+        if(!email.matches(regex)){
+            throw new MalformedEmailException("The provided email is malformed");
+        }
+        if(personRepository.findByEmail(email).isPresent()){
+            throw new EntityExistsException("The provided email is already registered");
+        }
     }
 
     private String generateUsername(){

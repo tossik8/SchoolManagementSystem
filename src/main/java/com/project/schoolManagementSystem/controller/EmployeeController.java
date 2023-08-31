@@ -3,6 +3,7 @@ package com.project.schoolManagementSystem.controller;
 import com.project.schoolManagementSystem.dto.db.EmployeeDTO;
 import com.project.schoolManagementSystem.dto.update.UpdateEmployeeRequest;
 import com.project.schoolManagementSystem.service.EmployeeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class EmployeeController {
     }
     @PutMapping("/{username}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void updateEmployee(@PathVariable String username, @RequestBody UpdateEmployeeRequest request){
+    public void updateEmployee(@PathVariable String username, @Valid @RequestBody UpdateEmployeeRequest request){
         employeeService.updateEmployee(username, request);
     }
 

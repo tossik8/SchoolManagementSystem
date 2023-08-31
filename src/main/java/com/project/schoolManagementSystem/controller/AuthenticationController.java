@@ -5,6 +5,7 @@ import com.project.schoolManagementSystem.dto.authentication.AuthenticationRespo
 import com.project.schoolManagementSystem.dto.registration.EmployeeRegistrationRequest;
 import com.project.schoolManagementSystem.dto.registration.StudentRegistrationRequest;
 import com.project.schoolManagementSystem.service.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +19,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/student/registration")
-    public String register(@RequestBody StudentRegistrationRequest request){
+    public String register(@Valid @RequestBody StudentRegistrationRequest request){
         return authenticationService.register(request);
     }
 
     @PostMapping("/employee/registration")
-    public String register(@RequestBody EmployeeRegistrationRequest request){
+    public String register(@Valid @RequestBody EmployeeRegistrationRequest request){
         return authenticationService.register(request);
     }
 

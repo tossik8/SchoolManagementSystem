@@ -58,16 +58,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-    private void handleJwtException(HttpServletResponse response, JwtException exception){
+    private void handleJwtException(HttpServletResponse response, JwtException exception) throws IOException {
         Pattern pattern = Pattern.compile("^[\\w\\s-:]+");
         Matcher matcher = pattern.matcher(exception.getMessage());
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         if(matcher.find()){
-            try {
-                response.getWriter().println(matcher.group());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            response.getWriter().println(matcher.group());
         }
     }
 }

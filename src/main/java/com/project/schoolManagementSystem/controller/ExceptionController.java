@@ -1,13 +1,18 @@
 package com.project.schoolManagementSystem.controller;
 
 import com.project.schoolManagementSystem.exception.InvalidRoleAssignmentException;
+import com.project.schoolManagementSystem.exception.MalformedEmailException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.PropertyValueException;
+import lombok.NonNull;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.regex.Matcher;
@@ -39,13 +44,15 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-    @ExceptionHandler(PropertyValueException.class)
-    public ResponseEntity<String> handlePropertyValueException(PropertyValueException exception){
-        Pattern pattern = Pattern.compile("\\w+$");
-        Matcher matcher = pattern.matcher(exception.getMessage());
-        if(matcher.find()){
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(matcher.group() + " cannot be null");
-        }
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
+                                                                  @NonNull HttpHeaders headers,
+                                                                  @NonNull HttpStatusCode status,
+                                                                  @NonNull WebRequest request) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getBody().getDetail());
+    }
+    @ExceptionHandler(MalformedEmailException.class)
+    public ResponseEntity<String> handleMalformedEmailException(MalformedEmailException exception){
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
     }
 }

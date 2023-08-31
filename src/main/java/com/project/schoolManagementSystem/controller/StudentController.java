@@ -3,6 +3,7 @@ package com.project.schoolManagementSystem.controller;
 import com.project.schoolManagementSystem.dto.db.StudentDTO;
 import com.project.schoolManagementSystem.dto.update.UpdateStudentRequest;
 import com.project.schoolManagementSystem.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class StudentController {
 
     @PutMapping("/{username}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void updateStudent(@PathVariable String username, @RequestBody UpdateStudentRequest request){
+    public void updateStudent(@PathVariable String username, @Valid @RequestBody UpdateStudentRequest request){
         studentService.updateStudent(username, request);
     }
 
