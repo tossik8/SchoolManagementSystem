@@ -22,6 +22,10 @@ import java.util.Properties;
 @RequiredArgsConstructor
 public class ApplicationConfig {
     private final PersonRepository personRepository;
+    @Value("${spring.mail.host}")
+    private String mailHost;
+    @Value("${spring.mail.port}")
+    private int mailPort;
     @Value("${spring.mail.username}")
     private String mailUsername;
     @Value("${spring.mail.password}")
@@ -30,8 +34,8 @@ public class ApplicationConfig {
     @Bean
     public JavaMailSender getJavaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost(mailHost);
+        mailSender.setPort(mailPort);
         mailSender.setUsername(mailUsername);
         mailSender.setPassword(mailPassword);
         Properties props = mailSender.getJavaMailProperties();

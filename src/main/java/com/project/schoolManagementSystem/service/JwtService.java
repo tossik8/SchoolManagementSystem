@@ -5,6 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,8 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    private final static String KEY = "MyAYeU9gIUekPg6W32OYQ1cKZDaxRRhOILsIvCN/XVGWrlnq2ccbuuUAj5fy6dPX";
+    @Value("${jwt.key}")
+    private String KEY;
     public String getUsername(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -23,6 +25,7 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails){
         return Jwts.builder()
+                .setHeaderParam("typ", "JWT")
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 3600))
